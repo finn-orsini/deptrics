@@ -10,12 +10,9 @@ jobs:
         with:
           node-version: 14.x
           cache: yarn
+      # In CI, yarn 2 automatically fails CI if lockfile will change
       - name: Run Install
         run: yarn install
-      - name: Check Lockfile
-        # Grep git status after install for a changed lockfile
-        # Negate the exit status to fail if lockfile is changed
-        run: '! git status --porcelain | grep "yarn.lock"'
 
   test:
     name: Run Tests
