@@ -1,6 +1,6 @@
 # deptrics
 
-## `deptrics`, like `metrics`
+`deptrics`, like `metrics`
 
 ## Description
 
