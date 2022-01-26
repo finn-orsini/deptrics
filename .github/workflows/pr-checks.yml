@@ -13,7 +13,7 @@ jobs:
           cache: yarn
       # In CI, yarn 2 automatically fails CI if lockfile will change
       - name: Run Install
-        run: yarn install
+        run: yarn
 
   test:
     name: Run Tests
@@ -25,7 +25,7 @@ jobs:
           node-version: 14.x
           cache: yarn
       - name: install
-        run: yarn install --immutable
+        run: yarn --immutable
       - name: test
         run: yarn test
 
@@ -39,7 +39,7 @@ jobs:
           node-version: 14.x
           cache: yarn
       - name: install
-        run: yarn install --immutable
+        run: yarn --immutable
       - name: lint
         run: yarn lint
 
@@ -53,6 +53,6 @@ jobs:
           node-version: 14.x
           cache: yarn
       - name: install
-        run: yarn install --immutable
+        run: yarn --immutable
       - name: format-check
         run: yarn format:check
