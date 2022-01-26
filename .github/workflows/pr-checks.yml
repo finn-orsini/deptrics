@@ -10,11 +10,13 @@ jobs:
         with:
           node-version: 14.x
           cache: yarn
-      - name: Validate cache
+      - name: Run Install
         run: yarn install
+      - name: Check Lockfile
+        run: git status --porcelain | grep "yarn.lock"
 
   test:
-    name: Run Jest Tests
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
