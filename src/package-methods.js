@@ -1,16 +1,18 @@
-const {execSync} = require('child_process');
-const semver = require('semver');
+const { execSync } = require("child_process");
+const semver = require("semver");
 const {
   calculateAverageTimeBetweenTimestamps,
   calculateVersionSequenceNumberDistance,
   calculateTimeOutdated,
   calculateTimeOutdatedMajor,
-} = require('./utils');
+} = require("./utils");
 
-const getYarnPackageInfo = ({packageName}) => {
-  const info = execSync(`yarn info ${packageName} --json`, {encoding: 'utf8'});
+const getYarnPackageInfo = ({ packageName }) => {
+  const info = execSync(`yarn info ${packageName} --json`, {
+    encoding: "utf8",
+  });
   const {
-    data: {versions, time, ...others},
+    data: { versions, time, ...others },
   } = JSON.parse(info);
 
   return {
@@ -55,7 +57,7 @@ const getPackageVersionMetrics = ({
   additionalMetricCalculation = () => {},
   getPackageVersionInfo = getYarnPackageInfo,
 }) => {
-  const {versions, time, ...others} = getPackageVersionInfo({packageName});
+  const { versions, time, ...others } = getPackageVersionInfo({ packageName });
 
   const mostRecentVersion = versions[versions.length - 1];
 
@@ -81,7 +83,7 @@ const getPackageVersionMetrics = ({
       })
     : 0;
   const timeOutdatedMajor =
-    semverDiff === 'major'
+    semverDiff === "major"
       ? calculateTimeOutdatedMajor({
           currentVersion: version,
           versions,
@@ -91,7 +93,7 @@ const getPackageVersionMetrics = ({
       : 0;
 
   return {
-    ...additionalMetricCalculation({versions, time, ...others}),
+    ...additionalMetricCalculation({ versions, time, ...others }),
     version,
     mostRecentVersion,
     versionSequenceNumberDistance,
@@ -109,7 +111,7 @@ const getPackageMetrics = ({
   packageName,
   getPackageVersionInfo = getYarnPackageInfo,
 }) => {
-  const {versions, time} = getPackageVersionInfo({packageName});
+  const { versions, time } = getPackageVersionInfo({ packageName });
   const avgTimeBetweenMajors = getAverageTimeBetweenMajorReleases(
     versions,
     time
