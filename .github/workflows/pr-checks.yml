@@ -15,7 +15,7 @@ jobs:
       - name: Check Lockfile
         # Grep git status after install for a changed lockfile
         # Negate the exit status to fail if lockfile is changed
-        run: ! git status --porcelain | grep "yarn.lock"
+        run: '! git status --porcelain | grep "yarn.lock"'
 
   test:
     name: Run Tests
