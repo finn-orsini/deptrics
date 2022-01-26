@@ -1,5 +1,8 @@
 name: PR Checks
-on: [push, pull_request]
+on:
+  pull_request:
+    branches-ignore:
+      - "main"
 jobs:
   validate-lockfile:
     name: Validate lockfile
