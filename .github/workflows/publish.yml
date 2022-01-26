@@ -1,0 +1,23 @@
+# Workflow runs after release is published in GH UI
+# Currently no automated version checking
+# Be sure to bump pjson version & changelog before creating a new release
+
+name: "Publish After Release"
+on:
+  release:
+    types: [released]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          cache: yarn
+      - run: yarn
+      - run: yarn test
+      - run: npm publish
+          env:
+            NPM_REGISTRY_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
