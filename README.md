@@ -1,13 +1,10 @@
 # deptrics
 
-`deptrics`, like `metrics`.
+## `deptrics`, like `metrics`
 
+## Description
 
-A NodeJS package to report information about dependency & package health.
-
-Does not parse a package.json file or compute existing dependencies for any
-application or library repo. Expects explicit dependency information to be
-passed to the methods, letting the caller decide where to source that data.
+A package to report dependency metrics. Currently relies on output from `yarn info` commands directly. See [#2](https://github.com/finn-orsini/deptrics/issues/2).
 
 ## API
 
@@ -118,39 +115,32 @@ passed to the methods, letting the caller decide where to source that data.
 #### For a list of dependencies
 
 ```js
-const {
-  getMetricsForDependencies,
-  aggregateMetrics,
-} = require('deptrics');
+const { getMetricsForDependencies, aggregateMetrics } = require("deptrics");
 
 // Retrieving metrics for a list of dependencies
 // Returns array of package version metrics, described below
 const dependencyMetrics = getMetricsForDependencies({
-  semver: '7.3.2',
-  'lib': '10.0.1',
+  semver: "7.3.2",
+  lib: "10.0.1",
 });
 
 // generate a report for all dependencies
 const metricsReport = aggregateMetrics(dependencyMetrics);
-
 ```
 
 #### For a single package
 
 ```js
-const {
-  getPackageVersionMetrics,
-  getPackageMetrics,
-} = require('deptrics');
+const { getPackageVersionMetrics, getPackageMetrics } = require("deptrics");
 
 // Get metrics for how outdated a specific dependency is
 const packageVersionMetrics = getPackageVersionMetrics({
-  packageName: 'foo',
-  version: '10.0.1',
+  packageName: "foo",
+  version: "10.0.1",
 });
 
 // Get data about the release patterns of a package
 const packageVersionMetrics = getPackageMetrics({
-  packageName: 'foo',
+  packageName: "foo",
 });
 ```
