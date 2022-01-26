@@ -1,0 +1,29 @@
+{
+  "name": "deptrics",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "src/index.js",
+  "author": "Seraphina Orsini",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/finn-orsini/deptrics.git"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "dependencies": {
+    "semver": "^7.3.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "jest": "^27.4.7",
+    "prettier": "^2.5.1"
+  },
+  "scripts": {
+    "lint": "eslint src/**/*",
+    "test": "jest",
+    "format": "prettier --write src/**/*",
+    "format:check": "prettier --check src/**/*"
+  },
+  "packageManager": "yarn@3.1.1"
+}
