@@ -4,7 +4,7 @@
 
 ## Description
 
-A package to report dependency metrics. Currently relies on output from `yarn info` commands directly. See [issue #2](https://github.com/finn-orsini/deptrics/issues/2).
+A package to report dependency metrics. Currently relies on output from `yarn info` commands directly. See [#2](https://github.com/finn-orsini/deptrics/issues/2).
 
 ## API
 

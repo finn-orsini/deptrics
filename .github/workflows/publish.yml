@@ -6,6 +6,9 @@ name: "Publish After Release"
 on:
   release:
     types: [released]
+  push:
+    branches:
+      - "releases/**"
 
 jobs:
   publish:
