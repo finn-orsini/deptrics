@@ -14,14 +14,6 @@ const mockGetPackageVersionInfo = () => ({
   },
 });
 
-const mockGetPackageVersionInfoNoVersions = () => ({
-  time: {},
-});
-
-const mockGetPackageVersionInfoNoTime = () => ({
-  versions: {},
-});
-
 describe("getPackageVersionMetrics", () => {
   it("Returns dependency metrics", () => {
     const {
@@ -82,7 +74,7 @@ describe("getPackageVersionMetrics", () => {
       getPackageVersionMetrics({
         packageName: "foo",
         version: "1.2.0",
-        getPackageVersionInfo: mockGetPackageVersionInfoNoTime,
+        getPackageVersionInfo: () => ({ versions: {} }),
       });
     }).toThrow(
       "`time` property not found when calling `getPackageVersionInfo` from `getPackageVersionMetrics`"
@@ -91,7 +83,7 @@ describe("getPackageVersionMetrics", () => {
       getPackageVersionMetrics({
         packageName: "foo",
         version: "1.2.0",
-        getPackageVersionInfo: mockGetPackageVersionInfoNoVersions,
+        getPackageVersionInfo: () => ({ time: {} }),
       });
     }).toThrow(
       "`versions` property not found when calling `getPackageVersionInfo` from `getPackageVersionMetrics`"
