@@ -14,6 +14,14 @@ const mockGetPackageVersionInfo = () => ({
   },
 });
 
+const mockGetPackageVersionInfoNoVersions = () => ({
+  time: {},
+});
+
+const mockGetPackageVersionInfoNoTime = () => ({
+  versions: {},
+});
+
 describe("getPackageVersionMetrics", () => {
   it("Returns dependency metrics", () => {
     const {
@@ -68,6 +76,26 @@ describe("getPackageVersionMetrics", () => {
     });
 
     expect(extraKey).toBe(true);
+  });
+  it("Errors when required fields are missing from getPackageVersionInfo", () => {
+    expect(() => {
+      getPackageVersionMetrics({
+        packageName: "foo",
+        version: "1.2.0",
+        getPackageVersionInfo: mockGetPackageVersionInfoNoTime,
+      });
+    }).toThrow(
+      "`time` property not found when calling `getPackageVersionInfo` from `getPackageVersionMetrics`"
+    );
+    expect(() => {
+      getPackageVersionMetrics({
+        packageName: "foo",
+        version: "1.2.0",
+        getPackageVersionInfo: mockGetPackageVersionInfoNoVersions,
+      });
+    }).toThrow(
+      "`versions` property not found when calling `getPackageVersionInfo` from `getPackageVersionMetrics`"
+    );
   });
 });
 

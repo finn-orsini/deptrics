@@ -32,7 +32,7 @@ A package to report dependency metrics. Currently relies on output from `yarn in
 ### `getPackageVersionMetrics`
 
 `getPackageVersionMetrics(obj)`,
-`getPackageVersionMetrics({packageName, version})`
+`getPackageVersionMetrics({packageName, version, additionalMetricCalculation, getPackageVersionInfo})`
 
 #### Parameters
 
@@ -41,9 +41,25 @@ A package to report dependency metrics. Currently relies on output from `yarn in
 - `packageName`: Name of the npm package to retrieve metrics for
 - `version`: Package version to calculate health metrics for
 - `additionalMetricCalculation`: A function which is passed the result of
-  `yarn info`, and whose return value is spread into the return value of this
+  `getPackageVersionInfo`, and whose return value is spread into the return value of this
   function. Allows for customization of metrics without needing to call
-  `yarn info` again.
+  `getPackageVersionInfo` again.
+- `getPackageVersionInfo`: A function which is passed the `packageName` and whose return value is a json string:
+```
+{
+  "versions": [
+    "0.0.1",
+    "0.2.0",
+    ...
+  ],
+  "time": [
+   "0.0.1": "2013-07-06T00:54:44.444Z",
+   "0.2.0": "2013-07-17T04:04:55.944Z",
+   ...
+  ],
+  ...otherPackageData
+}
+```
 
 #### Return Value
 

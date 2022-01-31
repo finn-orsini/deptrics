@@ -48,6 +48,20 @@ const getAverageTimeBetweenMajorReleases = (versions, times) => {
   return calculateAverageTimeBetweenTimestamps(majorReleaseTimes);
 };
 
+// validate the date returned from this callback has required fields in expected format
+const validatePackageVersionInfo = (info) => {
+  if (!info.versions || info.versions.length === 0) {
+    throw new Error(
+      "`versions` property not found when calling `getPackageVersionInfo` from `getPackageVersionMetrics`"
+    );
+  }
+  if (!info.time) {
+    throw new Error(
+      "`time` property not found when calling `getPackageVersionInfo` from `getPackageVersionMetrics`"
+    );
+  }
+};
+
 // function designed to be called for a consuming app / library
 // i.e. what does using this version of this package
 // mean for our dependency health
@@ -57,8 +71,10 @@ const getPackageVersionMetrics = ({
   additionalMetricCalculation = () => {},
   getPackageVersionInfo = getYarnPackageInfo,
 }) => {
-  const { versions, time, ...others } = getPackageVersionInfo({ packageName });
+  const packageVersionInfo = getPackageVersionInfo({ packageName });
+  validatePackageVersionInfo(packageVersionInfo);
 
+  const { versions, time, ...others } = packageVersionInfo;
   const mostRecentVersion = versions[versions.length - 1];
 
   const versionSequenceNumberDistance = calculateVersionSequenceNumberDistance(
