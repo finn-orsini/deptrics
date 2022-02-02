@@ -69,6 +69,26 @@ describe("getPackageVersionMetrics", () => {
 
     expect(extraKey).toBe(true);
   });
+  it("Errors when required fields are missing from getPackageVersionInfo", () => {
+    expect(() => {
+      getPackageVersionMetrics({
+        packageName: "foo",
+        version: "1.2.0",
+        getPackageVersionInfo: () => ({ versions: {} }),
+      });
+    }).toThrow(
+      "`time` property not found when calling `getPackageVersionInfo` from `getPackageVersionMetrics`"
+    );
+    expect(() => {
+      getPackageVersionMetrics({
+        packageName: "foo",
+        version: "1.2.0",
+        getPackageVersionInfo: () => ({ time: {} }),
+      });
+    }).toThrow(
+      "`versions` property not found when calling `getPackageVersionInfo` from `getPackageVersionMetrics`"
+    );
+  });
 });
 
 describe("getPackageMetrics", () => {
