@@ -44,7 +44,7 @@ A package to report dependency metrics. Currently relies on output from `yarn in
   `getPackageVersionInfo`, and whose return value is spread into the return value of this
   function. Allows for customization of metrics without needing to call
   `getPackageVersionInfo` again.
-- `getPackageVersionInfo`: A function which is passed the `packageName` and whose return value is a json string:
+- `getPackageVersionInfo`: A function which is passed the `packageName` and whose return value is an object with `versions` and `time` data
 ```
 {
   "versions": [
